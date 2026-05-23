@@ -194,9 +194,81 @@ Una vez confirmados los precios, genera **ambos** archivos:
 
 ---
 
+### Paso 11 — Generar prompt de diseño para construir el sitio
+
+Una vez confirmados los precios y generados los documentos de propuesta, crea el archivo **`prompt-diseno.md`** con el prompt completo para que cualquier agente IA (opencode, Claude Code, Cursor, etc.) construya el sitio web.
+
+El archivo debe contener esta estructura exacta:
+
+---
+
+```markdown
+# Prompt de Diseño — [Nombre del Cliente]
+
+## 1. Resumen ejecutivo
+- **Cliente:** [nombre]
+- **Industria:** [tipo de negocio]
+- **Stack técnico:** [tecnologías definidas en Paso 8]
+- **Tono visual:** [definido en Paso 5]
+
+## 2. Especificación de diseño
+- **Paleta de colores:**
+  - Primary: `#hex` — [uso]
+  - Secundario: `#hex` — [uso]
+  - Acento: `#hex` — [uso]
+  - Fondo: `#hex` — [uso]
+  - Texto: `#hex` — [uso]
+- **Tipografía:**
+  - Títulos: [fuente] — [justificación]
+  - Cuerpo: [fuente] — [justificación]
+- **UX highlights:** [3-5 puntos clave definidos en Paso 5]
+- **Benchmark aplicado:** [qué inspiración se tomó de cada referencia analizada en Paso 2]
+
+## 3. Arquitectura del sitio
+[Estructura completa definida en Paso 4 — listar cada sección con su propósito y contenido esperado]
+
+## 4. Requerimientos funcionales
+- [ ] Diseño responsive (mobile-first, mín. 3 breakpoints)
+- [ ] Navegación [tipo de menú definido]
+- [ ] Hero / portada con [slider / video / imagen]
+- [ ] Secciones: [listar cada sección]
+- [ ] Formulario de contacto conectado a [backend definido]
+- [ ] Mapa interactivo (si aplica)
+- [ ] Sliders / carruseles (si aplica)
+- [ ] Animaciones: scroll reveal, hover effects, [otras]
+- [ ] Integraciones: [redes sociales, analytics, WhatsApp, etc.]
+- [ ] SEO on-page básico
+- [ ] Performance: lazy loading, imágenes optimizadas
+
+## 5. Instrucciones de implementación
+
+Construye el sitio web completo siguiendo esta especificación. Genera los siguientes archivos en la raíz del proyecto:
+
+- `index.html` — estructura semántica completa
+- `styles.css` — todos los estilos (variables CSS, responsive, animaciones)
+- `script.js` — toda la interactividad (menú, sliders, formulario, scroll reveal)
+- `send.php` o el backend definido (si aplica)
+
+### Formato de salida esperado
+- HTML5 semántico y accesible
+- CSS con Custom Properties para theming
+- JavaScript vanilla (sin frameworks a menos que se especifique lo contrario)
+- Código limpio sin comentarios excesivos
+- Diseño responsive probado en mobile, tablet y desktop
+- Animaciones sutiles y performantes
+
+### Benchmark aplicado
+[Detallar qué aprendizajes de cada sitio de referencia deben reflejarse en el diseño final]
+```
+
+---
+
 ## Formato de salida
 
-- Los archivos se generan en la raíz del proyecto actual como `presentacion.md` y `presentacion.html`
+- Los archivos se generan en la raíz del proyecto actual:
+  - `presentacion.md` — documento de propuesta en Markdown
+  - `presentacion.html` — documento de propuesta en HTML visual premium
+  - `prompt-diseno.md` — prompt técnico para construir el sitio con IA (nuevo en v1.5)
 - Si ya existen, preguntar antes de sobrescribir
 
 ## Notas importantes
