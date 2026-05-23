@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTP Mundo Maya · Propuesta de Rediseño Web — KreatifLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --kl-primary: #1a3a5c;
+    --kl-primary-light: #2c5f8a;
+    --kl-accent: #e8a838;
+    --kl-accent-light: #f0c060;
+    --kl-dark: #0f1a2e;
+    --kl-dark-bg: #0b1320;
+    --kl-card-bg: #111d30;
+    --kl-text: #e8edf5;
+    --kl-text-muted: #8899b4;
+    --kl-border: rgba(232, 168, 56, 0.15);
+    --kl-nav-bg: rgba(11, 19, 32, 0.92);
+    --kl-success: #2ecc71;
+    --kl-danger: #e74c3c;
+}
+[data-theme="light"] {
+    --kl-dark: #e8edf5;
+    --kl-dark-bg: #f4f6fa;
+    --kl-card-bg: #ffffff;
+    --kl-text: #1a1a2e;
+    --kl-text-muted: #6b7280;
+    --kl-border: rgba(232, 168, 56, 0.2);
+    --kl-nav-bg: rgba(255, 255, 255, 0.92);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--kl-dark-bg);
+    color: var(--kl-text);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.3; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--kl-dark); }
+::-webkit-scrollbar-thumb { background: var(--kl-accent); border-radius: 4px; }
+
+/* Navigation */
+nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--kl-nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--kl-border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-brand .logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--kl-accent), var(--kl-accent-light));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; color: var(--kl-dark);
+}
+.nav-brand span { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--kl-text); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { color: var(--kl-text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover { color: var(--kl-accent); }
+.nav-links .cta {
+    background: var(--kl-accent); color: var(--kl-dark); padding: 6px 18px; border-radius: 6px;
+    font-weight: 600; font-size: 13px; transition: all 0.3s;
+}
+.nav-links .cta:hover { background: var(--kl-accent-light); transform: translateY(-1px); }
+
+/* Mobile nav */
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.nav-toggle span { width: 24px; height: 2px; background: var(--kl-text); border-radius: 2px; transition: 0.3s; }
+
+/* Cover Section */
+.cover {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+.cover::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(26, 58, 92, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(232, 168, 56, 0.08) 0%, transparent 60%);
+}
+.cover-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232, 168, 56, 0.1); border: 1px solid rgba(232, 168, 56, 0.2);
+    padding: 6px 18px; border-radius: 100px;
+    font-size: 12px; font-weight: 500; color: var(--kl-accent);
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.cover h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+.cover h1 .highlight { color: var(--kl-accent); }
+.cover .subtitle {
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--kl-text-muted);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    position: relative;
+}
+.cover-meta {
+    display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+    position: relative;
+}
+.cover-meta-item { text-align: center; }
+.cover-meta-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--kl-text-muted); }
+.cover-meta-item .value { font-size: 15px; font-weight: 600; color: var(--kl-text); margin-top: 2px; }
+.cover-divider {
+    width: 60px; height: 2px; background: var(--kl-accent);
+    margin: 2rem 0; border-radius: 2px; position: relative;
+}
+.cover .scroll-indicator {
+    position: absolute; bottom: 2rem;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--kl-text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+}
+.cover .scroll-indicator i { animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* Sections */
+section {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+.section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--kl-accent);
+    margin-bottom: 0.8rem;
+}
+.section-header h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 0.8rem;
+}
+.section-header p {
+    color: var(--kl-text-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.card {
+    background: var(--kl-card-bg);
+    border: 1px solid var(--kl-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+.card:hover { border-color: rgba(232, 168, 56, 0.3); transform: translateY(-2px); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+/* Benchmark */
+.benchmark-card .benchmark-title {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;
+}
+.benchmark-card .num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(232, 168, 56, 0.1); border: 1px solid rgba(232, 168, 56, 0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--kl-accent); flex-shrink: 0;
+}
+.benchmark-card h3 { font-size: 1.1rem; }
+.benchmark-card .positioning { font-size: 13px; color: var(--kl-accent); margin-bottom: 1rem; font-weight: 500; }
+.benchmark-card ul { list-style: none; }
+.benchmark-card ul li { font-size: 14px; color: var(--kl-text-muted); margin-bottom: 6px; padding-left: 20px; position: relative; }
+.benchmark-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--kl-accent); }
+
+/* Table */
+.table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--kl-border);
+}
+table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px;
+}
+thead { background: rgba(232, 168, 56, 0.08); }
+th { padding: 14px 16px; text-align: left; font-weight: 600; color: var(--kl-accent); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+td { padding: 14px 16px; border-top: 1px solid var(--kl-border); color: var(--kl-text-muted); }
+td:first-child { font-weight: 600; color: var(--kl-text); }
+tr:hover td { background: rgba(232, 168, 56, 0.03); }
+
+/* Feature value list */
+.value-list { list-style: none; }
+.value-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--kl-border);
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px;
+}
+.value-list li:last-child { border-bottom: none; }
+.value-list li i { color: var(--kl-accent); margin-top: 2px; font-size: 14px; }
+
+/* Architecture section */
+.arch {
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    color: var(--kl-text-muted);
+    padding: 0;
+}
+.arch .hl { color: var(--kl-accent); font-weight: 600; }
+.arch .sec { color: #5a8bbf; font-weight: 600; }
+
+/* Stack grid */
+.stack-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 1rem 1.5rem;
+    background: var(--kl-card-bg);
+    border: 1px solid var(--kl-border);
+    border-radius: 10px;
+}
+.stack-item .icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(232, 168, 56, 0.08);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 18px;
+}
+.stack-item .label { font-weight: 600; font-size: 14px; color: var(--kl-text); }
+.stack-item .desc { font-size: 13px; color: var(--kl-text-muted); }
+
+/* Next steps */
+.next-steps { list-style: none; }
+.next-steps li {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--kl-border);
+    font-size: 15px;
+}
+.next-steps li:last-child { border-bottom: none; }
+.next-steps li .checkbox {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--kl-border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--kl-dark);
+}
+.next-steps li .checkbox.done { background: var(--kl-accent); border-color: var(--kl-accent); }
+
+/* Color palette */
+.palette { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.color-swatch {
+    width: 80px; text-align: center;
+}
+.color-swatch .swatch {
+    width: 80px; height: 80px; border-radius: 12px;
+    margin-bottom: 6px; border: 1px solid rgba(255,255,255,0.05);
+}
+.color-swatch .code { font-size: 11px; font-family: monospace; color: var(--kl-text-muted); }
+.color-swatch .use { font-size: 10px; color: var(--kl-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Typography example */
+.typo-sample { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.5rem; background: var(--kl-card-bg); border-radius: 12px; border: 1px solid var(--kl-border); }
+.typo-sample .pf { font-family: 'Playfair Display', serif; font-size: 2rem; }
+.typo-sample .inter { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--kl-text-muted); }
+
+/* Value prop */
+.value-prop-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.value-prop {
+    display: flex; align-items: center; gap: 14px;
+    padding: 1rem 1.5rem;
+    background: var(--kl-card-bg);
+    border: 1px solid var(--kl-border);
+    border-radius: 10px;
+    font-size: 15px;
+}
+.value-prop .num {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--kl-accent); color: var(--kl-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; flex-shrink: 0;
+}
+
+/* Footer */
+.proposal-footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--kl-border);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.proposal-footer .brand {
+    font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--kl-text);
+    margin-bottom: 0.5rem;
+}
+.proposal-footer .brand em { font-style: italic; color: var(--kl-accent); }
+.proposal-footer p { color: var(--kl-text-muted); font-size: 14px; }
+.proposal-footer .socials { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+.proposal-footer .socials a {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--kl-card-bg); border: 1px solid var(--kl-border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--kl-text-muted); text-decoration: none; transition: 0.3s;
+}
+.proposal-footer .socials a:hover { border-color: var(--kl-accent); color: var(--kl-accent); transform: translateY(-2px); }
+
+/* Spacing */
+.spacer { height: 1px; background: var(--kl-border); margin: 3rem 0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(11, 19, 32, 0.98); flex-direction: column; padding: 1.5rem;
+        border-bottom: 1px solid var(--kl-border); gap: 1rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+    section { padding: 3rem 1.2rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .cover { padding: 5rem 1.2rem 2rem; }
+    .cover-meta { gap: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="https://kreatiflab.com" class="nav-brand" target="_blank">
+        <img src="https://www.kreatiflab.com/images/logo-default-223x50.png" alt="KreatifLab" height="30">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+        <a href="#resumen">Resumen</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#diagnostico">Diagnóstico</a>
+        <a href="#estructura">Estructura</a>
+        <a href="#diseno">Diseño</a>
+        <a href="#stack">Stack</a>
+        <a href="#valor">Propuesta</a>
+        <a href="#siguientes">Próximos</a>
+        <a href="https://kreatiflab.com" class="cta" target="_blank">kreatiflab.com</a>
+        <button id="themeToggle" aria-label="Cambiar tema" style="background: none; border: 1px solid var(--kl-border); color: var(--kl-accent); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.3s;">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Cover -->
+<section class="cover">
+    <div class="cover-badge"><i class="fas fa-file-alt"></i> Propuesta de Rediseño Web</div>
+    <h1>PTP <span class="highlight">Mundo Maya</span></h1>
+    <p class="subtitle">Transformación digital completa para una de las agencias B2B más importantes de Guatemala y Centroamérica.</p>
+    <div class="cover-divider"></div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; position: relative;">
+        <img src="https://ptpmundomaya.com/wp-content/uploads/2018/04/LOGO-PTP-85.jpg" alt="PTP Mundo Maya" height="60" style="border-radius: 6px;">
+    </div>
+    <div class="cover-meta">
+        <div class="cover-meta-item"><div class="label">Cliente</div><div class="value">PTP Mundo Maya</div></div>
+        <div class="cover-meta-item"><div class="label">Presentado por</div><div class="value">Dexel Mas</div></div>
+        <div class="cover-meta-item"><div class="label">Ing. Sistemas · Col. 21201</div><div class="value"><a href="mailto:dmas@kreatiflab.com" style="color: var(--kl-accent); text-decoration: none;">dmas@kreatiflab.com</a></div></div>
+        <div class="cover-meta-item"><div class="label">Fecha</div><div class="value">Mayo 2026</div></div>
+        <div class="cover-meta-item"><div class="label">Proyecto</div><div class="value">Rediseño Integral</div></div>
+    </div>
+    <div class="scroll-indicator"><span>Desplázate</span> <i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- Resumen Ejecutivo -->
+<section id="resumen">
+    <div class="section-header">
+        <div class="section-tag">Resumen Ejecutivo</div>
+        <h2>De WordPress a un sitio premium</h2>
+    </div>
+    <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <p style="font-size: 1.05rem; color: var(--kl-text); margin-bottom: 1.2rem;">
+            Se realizó un rediseño completo del sitio web de <strong>PTP Mundo Maya</strong>,
+            transformando una plataforma WordPress desactualizada en un sitio moderno, premium y funcional,
+            orientado al canal <strong>B2B</strong> (agencias de viajes y tour operadores internacionales).
+        </p>
+        <p style="color: var(--kl-text-muted);">
+            El nuevo diseño se inspira en los líderes mundiales del turismo de lujo y experiencias,
+            aplicando las mejores prácticas de UI/UX, animación y performance.
+        </p>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--kl-border);">
+            <div><span style="color: var(--kl-accent); font-weight: 700;">URL actual:</span> <span style="color: var(--kl-text-muted);">ptpmundomaya.com</span></div>
+            <div><span style="color: var(--kl-accent); font-weight: 700;">Tipo:</span> <span style="color: var(--kl-text-muted);">Agencia de viajes B2B</span></div>
+            <div><span style="color: var(--kl-accent); font-weight: 700;">Enfoque:</span> <span style="color: var(--kl-text-muted);">Guatemala y Centroamérica</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Benchmarking -->
+<section id="benchmark">
+    <div class="section-header">
+        <div class="section-tag">Benchmarking</div>
+        <h2>Referencias de clase mundial</h2>
+        <p>Se analizaron 5 sitios web de agencias de viajes premium como inspiración para el rediseño.</p>
+    </div>
+    <div class="grid-3">
+        <div class="card benchmark-card">
+            <div class="benchmark-title">
+                <div class="num">1</div>
+                <h3>Abercrombie &amp; Kent</h3>
+            </div>
+            <div class="positioning">Lujo aspiracional, viajes de expedición</div>
+            <ul>
+                <li>Diseño minimalista que deja respirar el contenido</li>
+                <li>Énfasis en guías expertos y acceso exclusivo</li>
+                <li>Navegación limpia con mega-menú por experiencia</li>
+                <li>Tipografía serif elegante para tradición y calidad</li>
+                <li>Hero de video/imagen full-screen sin saturación de texto</li>
+            </ul>
+        </div>
+        <div class="card benchmark-card">
+            <div class="benchmark-title">
+                <div class="num">2</div>
+                <h3>Red Savannah</h3>
+            </div>
+            <div class="positioning">Viajes a medida de alta gama</div>
+            <ul>
+                <li>Diseño oscuro con acentos dorados — paleta validada</li>
+                <li>Tarjetas de destino con overlay al hover</li>
+                <li>Secciones con espaciado generoso (whitespace como lujo)</li>
+                <li>Tipografía limpia y jerarquía visual clara</li>
+            </ul>
+        </div>
+        <div class="card benchmark-card">
+            <div class="benchmark-title">
+                <div class="num">3</div>
+                <h3>Black Tomato</h3>
+            </div>
+            <div class="positioning">Viajes experienciales de lujo</div>
+            <ul>
+                <li>Menú organizado por "Who / What / How"</li>
+                <li>Categorización por tipo de experiencia (no por destino)</li>
+                <li>Grid asimétrico para contenido dinámico</li>
+                <li>"Enquire Now" como CTA principal, siempre visible</li>
+                <li>Estilo visual cinematográfico con imágenes de alto impacto</li>
+            </ul>
+        </div>
+        <div class="card benchmark-card">
+            <div class="benchmark-title">
+                <div class="num">4</div>
+                <h3>Exceptional Travel</h3>
+            </div>
+            <div class="positioning">Viajes de lujo a medida</div>
+            <ul>
+                <li><strong>Navegación por preguntas: "Where? / When? / What?"</strong> — insight clave adoptado</li>
+                <li>Mapa mundial interactivo para explorar destinos</li>
+                <li>Testimonios con nombre real y siglas (autenticidad)</li>
+                <li>Sección de "Why Exceptional Travel?" con 3 pilares</li>
+            </ul>
+        </div>
+        <div class="card benchmark-card">
+            <div class="benchmark-title">
+                <div class="num">5</div>
+                <h3>Humboldt Travel</h3>
+            </div>
+            <div class="positioning">Especialistas en Latinoamérica</div>
+            <ul>
+                <li>Presencia de los fundadores como cara visible de la marca</li>
+                <li>3 pilares de valor: servicio personalizado / conocimiento experto / turismo responsable</li>
+                <li>Blog integrado con contenido de valor</li>
+                <li>Testimonios con plataforma de verificación (Feefo)</li>
+                <li>Múltiples canales de contacto: teléfono, email, formulario</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Diagnóstico -->
+<section id="diagnostico">
+    <div class="section-header">
+        <div class="section-tag">Diagnóstico</div>
+        <h2>Antes vs. Después</h2>
+        <p>Problemas detectados en el sitio original y las mejoras aplicadas en el rediseño.</p>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>Problema detectado</th>
+                    <th>Mejora aplicada</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Diseño</td><td>WordPress anticuado, saturado visualmente</td><td>Diseño limpio, premium, oscuro con acentos dorados</td></tr>
+                <tr><td>Navegación</td><td>Menú complejo con múltiples subniveles</td><td>Navegación simplificada "Where? / When? / What?"</td></tr>
+                <tr><td>Mobile</td><td>No responsive-friendly</td><td>Diseño mobile-first con 4 breakpoints</td></tr>
+                <tr><td>Tipografía</td><td>Sin jerarquía clara</td><td>Playfair Display (títulos) + Inter (cuerpo)</td></tr>
+                <tr><td>Velocidad</td><td>Imágenes sin optimizar</td><td>Lazy loading, imágenes responsivas, WebP-ready</td></tr>
+                <tr><td>Interactividad</td><td>Sin animaciones ni micro-interacciones</td><td>Custom cursor, scroll reveal, parallax, slider</td></tr>
+                <tr><td>Tours</td><td>Presentación en lista textual</td><td>Grid asimétrico tipo magazine con precios</td></tr>
+                <tr><td>Mapa</td><td>No tenía</td><td>Mapa SVG interactivo de Centroamérica</td></tr>
+                <tr><td>Calendario</td><td>No tenía</td><td>Calendario viajero por mes (mejor época)</td></tr>
+                <tr><td>Testimonios</td><td>Texto genérico sin fotos</td><td>Carrusel con fotos reales, nombres y países</td></tr>
+                <tr><td>Blog</td><td>No tenía</td><td>3 cards de artículos con fecha y categoría</td></tr>
+                <tr><td>Contacto</td><td>Formulario básico</td><td>Formulario con select de consulta + WhatsApp + oficinas</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Estructura -->
+<section id="estructura">
+    <div class="section-header">
+        <div class="section-tag">Arquitectura</div>
+        <h2>Estructura del nuevo sitio</h2>
+        <p>12 secciones que conforman la experiencia completa del usuario.</p>
+    </div>
+    <div class="card" style="max-width: 900px; margin: 0 auto;">
+        <div class="arch">
+━━━ <span class="hl">HEADER</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Logo PTP Mundo Maya
+  [Where?] [When?] [What?]  ·  EN/ES/PT  ·  Enquire Now
+
+━━━ <span class="hl">HERO</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Slider full-screen con 3 imágenes rotativas
+  Overlay gradiente verde oscuro
+  "GUATEMALA — La puerta al Mundo Maya"
+  Stats: 30+ años · 50+ tours · 30K+ viajeros
+
+━━━ <span class="hl">WHERE?</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Mapa SVG interactivo de Centroamérica
+  6 países clickeables con info dinámica
+
+━━━ <span class="hl">WHEN?</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Slider horizontal con 12 tarjetas mensuales
+  Mes actual destacado automáticamente
+
+━━━ <span class="hl">WHAT?</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  6 categorías de tours con iconos dorados
+
+━━━ <span class="hl">WHY PTP</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  3 pilares: Expertos · Solo B2B · Turismo Responsable
+
+━━━ <span class="hl">TOURS</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Grid asimétrico tipo magazine · 5 tours con precio
+
+━━━ <span class="hl">TESTIMONIALS</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Carrusel automático con fotos y nombres reales
+
+━━━ <span class="hl">TEAM</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  3 miembros del equipo con borde dorado y quotes
+
+━━━ <span class="hl">BLOG</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  3 artículos con fecha, categoría e imagen
+
+━━━ <span class="hl">CTA FINAL</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  WhatsApp integrado + Contacto + Acceso B2B
+
+━━━ <span class="hl">CONTACTO</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Formulario + 3 oficinas (GT · Palenque · Flores)
+
+━━━ <span class="hl">FOOTER</span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  4 columnas: Marca · Destinos · Tours · Empresa
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Decisiones de Diseño -->
+<section id="diseno">
+    <div class="section-header">
+        <div class="section-tag">Decisiones de Diseño</div>
+        <h2>Identidad visual premium</h2>
+    </div>
+
+    <h3 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;">Paleta de Colores</h3>
+    <div class="palette" style="margin-bottom: 3rem;">
+        <div class="color-swatch">
+            <div class="swatch" style="background: #0d4d3d;"></div>
+            <div class="code">#0d4d3d</div>
+            <div class="use">Primary</div>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch" style="background: #136b54;"></div>
+            <div class="code">#136b54</div>
+            <div class="use">Hovers</div>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch" style="background: #c9a227;"></div>
+            <div class="code">#c9a227</div>
+            <div class="use">Acentos</div>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch" style="background: #0a0a0a;"></div>
+            <div class="code">#0a0a0a</div>
+            <div class="use">Fondo</div>
+        </div>
+        <div class="color-swatch">
+            <div class="swatch" style="background: #f5f5f5;"></div>
+            <div class="code">#f5f5f5</div>
+            <div class="use">Texto</div>
+        </div>
+    </div>
+
+    <p style="text-align: center; color: var(--kl-text-muted); max-width: 600px; margin: 0 auto 3rem; font-size: 14px;">
+        <strong style="color: var(--kl-accent);">Por qué:</strong> El verde evoca la selva, la naturaleza y los paisajes de Guatemala.
+        El dorado representa el lujo, el sol y la herencia maya. El fondo oscuro transmite sofisticación.
+    </p>
+
+    <div class="grid-2" style="margin-top: 2rem;">
+        <div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Tipografía</h3>
+            <div class="typo-sample">
+                <div class="pf">Playfair Display</div>
+                <div style="font-size: 13px; color: var(--kl-accent); font-weight: 500;">Títulos, hero, nombres — Serif elegante</div>
+                <div class="inter" style="margin-top: 0.5rem;">Inter — Cuerpo, navegación, formularios</div>
+                <div style="font-size: 13px; color: var(--kl-accent); font-weight: 500;">Sans-serif legible para lectura en pantalla</div>
+            </div>
+        </div>
+        <div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">UX Highlights</h3>
+            <ul class="value-list">
+                <li><i class="fas fa-check-circle"></i> Navegación por preguntas (Where/When/What) — reduce fricción</li>
+                <li><i class="fas fa-check-circle"></i> Mapa interactivo — engagement visual, el usuario explora</li>
+                <li><i class="fas fa-check-circle"></i> Grid asimétrico — rompe monotonía, dirige la mirada</li>
+                <li><i class="fas fa-check-circle"></i> Animaciones sutiles — reveal + hover + transiciones</li>
+                <li><i class="fas fa-check-circle"></i> Custom cursor — detalle premium diferenciador</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Stack Técnico -->
+<section id="stack">
+    <div class="section-header">
+        <div class="section-tag">Stack Técnico</div>
+        <h2>Tecnología ligera y potente</h2>
+        <p>Sin frameworks ni CMS. Carga rápida, cero dependencias pesadas.</p>
+    </div>
+    <div class="grid-3">
+        <div class="stack-item">
+            <div class="icon" style="color: #e44d26;"><i class="fab fa-html5"></i></div>
+            <div><div class="label">HTML5 Semántico</div><div class="desc">Estructura del sitio</div></div>
+        </div>
+        <div class="stack-item">
+            <div class="icon" style="color: #264de4;"><i class="fab fa-css3-alt"></i></div>
+            <div><div class="label">CSS3 + Custom Properties</div><div class="desc">Estilos, temas, animaciones</div></div>
+        </div>
+        <div class="stack-item">
+            <div class="icon" style="color: #f7df1e;"><i class="fab fa-js"></i></div>
+            <div><div class="label">Vanilla JavaScript</div><div class="desc">Sin dependencias ni librerías</div></div>
+        </div>
+        <div class="stack-item">
+            <div class="icon" style="color: #528dd7;"><i class="fab fa-font-awesome"></i></div>
+            <div><div class="label">Font Awesome 6</div><div class="desc">Iconografía profesional</div></div>
+        </div>
+        <div class="stack-item">
+            <div class="icon" style="color: #4285f4;"><i class="fab fa-google"></i></div>
+            <div><div class="label">Google Fonts</div><div class="desc">Playfair Display + Inter</div></div>
+        </div>
+        <div class="stack-item">
+            <div class="icon" style="color: #eb6847;"><i class="fas fa-camera"></i></div>
+            <div><div class="label">Unsplash</div><div class="desc">Imágenes placeholder de alta calidad</div></div>
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Valor -->
+<section id="valor">
+    <div class="section-header">
+        <div class="section-tag">Propuesta de Valor</div>
+        <h2>Lo que este rediseño logra</h2>
+    </div>
+    <div class="value-prop-list" style="max-width: 700px; margin: 0 auto;">
+        <div class="value-prop"><div class="num">1</div> <strong>Posicionamiento premium</strong> — El sitio compite visualmente con Abercrombie &amp; Kent y Black Tomato</div>
+        <div class="value-prop"><div class="num">2</div> <strong>Enfoque B2B</strong> — "Solo B2B" como mensaje principal, no secundario</div>
+        <div class="value-prop"><div class="num">3</div> <strong>Confianza</strong> — Testimonios reales, equipo visible, estadísticas concretas</div>
+        <div class="value-prop"><div class="num">4</div> <strong>Utilidad</strong> — Mapa interactivo, calendario por mes, blog con contenido de valor</div>
+        <div class="value-prop"><div class="num">5</div> <strong>Conversión</strong> — CTAs estratégicos en cada sección, WhatsApp integrado</div>
+        <div class="value-prop"><div class="num">6</div> <strong>Diferenciación</strong> — "La puerta al Mundo Maya" como narrativa única que ningún competidor tiene</div>
+    </div>
+
+    <div class="card" style="max-width: 700px; margin: 2rem auto 0; border-color: rgba(232, 168, 56, 0.3);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+            <i class="fas fa-coins" style="color: var(--kl-accent); font-size: 1.5rem;"></i>
+            <h3 style="font-size: 1.3rem; margin: 0;">Inversión</h3>
+        </div>
+        <p style="color: var(--kl-text-muted); margin-bottom: 1.5rem; font-size: 14px;">
+            Esta propuesta aplica a los <strong style="color: var(--kl-text);">3 entregables ya completados</strong> (marcados con check en la sección Próximos Pasos):
+            rediseño y maquetación del sitio, integración de imágenes placeholder, y formulario de contacto conectado a backend.
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 1.5rem; background: rgba(232, 168, 56, 0.05); border-radius: 12px; border: 1px solid var(--kl-border);">
+            <div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--kl-text-muted); margin-bottom: 0.3rem;">Desarrollo</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--kl-accent);">Q.4,500.00</div>
+            </div>
+            <div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--kl-text-muted); margin-bottom: 0.3rem;">Mantenimiento / año</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--kl-accent);">Q.800.00</div>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(232, 168, 56, 0.1); border-left: 3px solid var(--kl-accent); border-radius: 0 8px 8px 0;">
+            <div style="font-size: 13px; color: var(--kl-text-muted);">Primer pago único</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--kl-accent);">Q.5,300.00</div>
+            <div style="font-size: 13px; color: var(--kl-text-muted); margin-top: 0.2rem;">Incluye desarrollo completo + primer año de mantenimiento</div>
+        </div>
+        <div style="margin-top: 1rem; font-size: 13px; color: var(--kl-text-muted); display: flex; align-items: flex-start; gap: 8px;">
+            <i class="fas fa-info-circle" style="color: var(--kl-accent); margin-top: 2px;"></i>
+            <span>El mantenimiento cubre cambios menores en el contenido del sitio (texto, imágenes, actualizaciones de tours, etc.).</span>
+        </div>
+    </div>
+</section>
+
+<div class="spacer" style="max-width: 1100px; margin: 0 auto;"></div>
+
+<!-- Próximos Pasos -->
+<section id="siguientes">
+    <div class="section-header">
+        <div class="section-tag">Próximos Pasos</div>
+        <h2>Hoja de ruta</h2>
+        <p>Pasos recomendados para la evolución del proyecto.</p>
+    </div>
+    <div class="card" style="max-width: 700px; margin: 0 auto;">
+        <ul class="next-steps">
+            <li>
+                <div class="checkbox"><i class="fas fa-check"></i></div>
+                <span style="color: var(--kl-text-muted); text-decoration: line-through;">Rediseño y maquetación del sitio</span>
+            </li>
+            <li>
+                <div class="checkbox"><i class="fas fa-check"></i></div>
+                <span style="color: var(--kl-text-muted); text-decoration: line-through;">Integración de imágenes placeholder</span>
+            </li>
+            <li>
+                <div class="checkbox"><i class="fas fa-check"></i></div>
+                <span style="color: var(--kl-text-muted); text-decoration: line-through;">Formulario de contacto conectado a backend</span>
+            </li>
+            <li>
+                <div class="checkbox"></div>
+                Reemplazar imágenes placeholder con fotos reales de PTP
+            </li>
+            <li>
+                <div class="checkbox"></div>
+                Implementar sistema de gestión de tours (admin)
+            </li>
+            <li>
+                <div class="checkbox"></div>
+                Páginas individuales de cada tour con itinerario
+            </li>
+            <li>
+                <div class="checkbox"></div>
+                Configurar analytics para medir conversión B2B
+            </li>
+            <li>
+                <div class="checkbox"></div>
+                Migrar contenido del blog a CMS headless (opcional)
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Footer -->
+<div class="proposal-footer">
+    <div class="brand">Kreatif<span style="color: var(--kl-accent);">Lab</span></div>
+    <p style="max-width: 400px; margin: 0.5rem auto 1rem;">Transformamos ideas en soluciones digitales innovadoras.</p>
+    <p style="font-size: 12px; color: var(--kl-text-muted); margin-bottom: 0.5rem;">Guatemala · Desarrollo Web · Apps Móviles · Transformación Digital</p>
+    <p style="font-size: 13px; color: var(--kl-text-muted);">
+        <i class="fas fa-globe" style="color: var(--kl-accent);"></i> 
+        <a href="https://kreatiflab.com" style="color: var(--kl-accent); text-decoration: none;">kreatiflab.com</a>
+        &nbsp;·&nbsp;
+        <i class="fas fa-envelope" style="color: var(--kl-accent);"></i> 
+        <a href="mailto:info@kreatiflab.com" style="color: var(--kl-accent); text-decoration: none;">info@kreatiflab.com</a>
+    </p>
+    <div class="socials">
+        <a href="https://facebook.com/kreatiflab" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com/kreatiflab" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://kreatiflab.com" aria-label="Web"><i class="fas fa-globe"></i></a>
+    </div>
+    <p style="margin-top: 2rem; font-size: 12px; color: var(--kl-text-muted);">
+        <em>Documento preparado por KreatifLab para PTP Mundo Maya · Mayo 2026</em>
+    </p>
+</div>
+
+<script>
+document.getElementById('navToggle')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('navLinks')?.classList.remove('open');
+    });
+});
+
+// Animation on scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.card, .stack-item, .value-prop, .benchmark-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+    observer.observe(el);
+});
+
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+    const icon = themeToggle.querySelector('i');
+    const saved = localStorage.getItem('kl-theme');
+    if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        icon.className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isLight = html.getAttribute('data-theme') === 'light';
+        if (isLight) {
+            html.removeAttribute('data-theme');
+            icon.className = 'fas fa-moon';
+            localStorage.setItem('kl-theme', 'dark');
+        } else {
+            html.setAttribute('data-theme', 'light');
+            icon.className = 'fas fa-sun';
+            localStorage.setItem('kl-theme', 'light');
+        }
+    });
+}
+</script>
+
+</body>
+</html>
