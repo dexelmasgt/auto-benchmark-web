@@ -1,6 +1,6 @@
 ---
 name: auto-benchmark-web
-description: Genera propuestas de desarrollo web con benchmark, diagnóstico, arquitectura, diseño, 3 paquetes de inversión y documentos descargables (.md + .html). También genera un prompt técnico para construir el sitio con IA. Activación: al mencionar propuesta, cotización, presupuesto, benchmark, análisis de sitio, rediseño web, cliente nuevo, o cuando el usuario pida generar una presentación comercial para un proyecto web.
+description: "Genera propuestas de desarrollo web con benchmark, diagnóstico, arquitectura, diseño, 3 paquetes de inversión y documentos descargables (.md + .html). También genera un prompt técnico para construir el sitio con IA. Activación: al mencionar propuesta, cotización, presupuesto, benchmark, análisis de sitio, rediseño web, cliente nuevo, o cuando el usuario pida generar una presentación comercial para un proyecto web."
 license: MIT
 compatibility: opencode, claude-code, cursor, windsurf, cline
 metadata:
