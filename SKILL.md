@@ -1,3 +1,12 @@
+---
+name: auto-benchmark-web
+description: "Genera propuestas de desarrollo web con benchmark, diagnóstico, arquitectura, diseño, 3 paquetes de inversión y documentos descargables (.md + .html). También genera un prompt técnico para construir el sitio con IA. Activación: al mencionar propuesta, cotización, presupuesto, benchmark, análisis de sitio, rediseño web, cliente nuevo, o cuando el usuario pida generar una presentación comercial para un proyecto web."
+license: MIT
+compatibility: opencode, claude-code, cursor, windsurf, cline
+metadata:
+  author: Dexel Mas - KreatifLab
+  email: dmas@kreatiflab.com
+---
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                                                                           │
@@ -27,18 +36,6 @@ Skill oficial de **KreatifLab** para generar propuestas comerciales de desarroll
 Analiza sitios de referencia, diagnostica el sitio actual del cliente, define arquitectura y diseño, propone 3 paquetes de inversión con precios de mercado, y genera documentos descargables en Markdown y HTML premium.
 
 ---
-
----
-name: auto-benchmark-web
-description: "Genera propuestas de desarrollo web con benchmark, diagnóstico, arquitectura, diseño, 3 paquetes de inversión y documentos descargables (.md + .html). También genera un prompt técnico para construir el sitio con IA. Activación: al mencionar propuesta, cotización, presupuesto, benchmark, análisis de sitio, rediseño web, cliente nuevo, o cuando el usuario pida generar una presentación comercial para un proyecto web."
-license: MIT
-compatibility: opencode, claude-code, cursor, windsurf, cline
-metadata:
-  author: KreatifLab
-  email: dmas@kreatiflab.com
----
-
-
 ## Flujo de ejecución (10 pasos)
 
 Sigue este flujo **exactamente en orden**, paso a paso, esperando la respuesta del usuario antes de continuar al siguiente.
