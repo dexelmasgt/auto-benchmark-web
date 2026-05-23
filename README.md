@@ -59,7 +59,7 @@ Agrega esto a tu `opencode.json`:
   "command": {
     "propuesta-web-kl": {
       "description": "Genera propuesta web con benchmark, diagnóstico, diseño y 3 paquetes de inversión",
-      "prompt": "Activa el skill propuesta-web-kl y ejecuta el flujo completo paso a paso, preguntando al usuario la información necesaria en cada paso."
+      "template": "Activa el skill propuesta-web-kl y ejecuta el flujo completo paso a paso, preguntando al usuario la información necesaria en cada paso."
     }
   }
 }
