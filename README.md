@@ -126,10 +126,10 @@ El HTML generado incluye:
 
 ---
 
-## Soporte
+## Creador
 
 **KreatifLab**  
-Dexel Mas — Ing. en Sistemas, Colegiado 21201  
+Dexel Mas 
 <dmas@kreatiflab.com>  
 <https://kreatiflab.com>
 
