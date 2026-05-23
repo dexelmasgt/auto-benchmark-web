@@ -1,5 +1,27 @@
 # auto-benchmark-web
 
+```
+┌──────────────────────────────────────────────────────────┐
+│                                                          │
+│   ██╗  ██╗██████╗ ███████╗ █████╗ ████████╗██╗███████╗██╗
+│   ██║ ██╔╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██║██╔════╝██║
+│   █████╔╝ ██████╔╝█████╗  ███████║   ██║   ██║█████╗  ██║
+│   ██╔═██╗ ██╔══██╗██╔══╝  ██╔══██║   ██║   ██║██╔══╝  ██║
+│   ██║  ██╗██║  ██║██║     ██║  ██║   ██║   ██║██║     ██║
+│   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝     ╚═╝
+│                                                          │
+│              ██████╗ ██╗     ███████╗██╗                  │
+│              ██╔══██╗██║     ██╔════╝██║                  │
+│              ██████╔╝██║     █████╗  ██║                  │
+│              ██╔══██╗██║     ██╔══╝  ██║                  │
+│              ██████╔╝███████╗██║     ██║                  │
+│              ╚═════╝ ╚══════╝╚═╝     ╚═╝                  │
+│                                                          │
+│           Auto Benchmark Web by KreatifLab                │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
+
 Skill de **KreatifLab** para generar propuestas comerciales de desarrollo web profesionales.
 
 Analiza sitios de referencia, diagnostica el sitio actual del cliente, define arquitectura y diseño, propone 3 paquetes de inversión con precios ajustados por país, y genera documentos descargables en Markdown y HTML premium.
