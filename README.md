@@ -1,4 +1,4 @@
-# propuesta-web-kl
+# auto-benchmark-web
 
 Skill de **KreatifLab** para generar propuestas comerciales de desarrollo web profesionales.
 
@@ -39,15 +39,15 @@ Funciona en cualquier agente compatible con el formato estándar `SKILL.md`.
 ### Desde GitHub (vía skills CLI)
 
 ```bash
-npx skills add dexelmasgt/propuesta-web-kl
+npx skills add dexelmasgt/auto-benchmark-web
 ```
 
 ### Manual (copia local)
 
 ```bash
-git clone https://github.com/dexelmasgt/propuesta-web-kl.git
+git clone https://github.com/dexelmasgt/auto-benchmark-web.git
 # Copia la carpeta a tu proyecto:
-cp -r propuesta-web-kl .opencode/skills/propuesta-web-kl
+cp -r auto-benchmark-web .opencode/skills/auto-benchmark-web
 ```
 
 ### En opencode (con slash command)
@@ -57,9 +57,9 @@ Agrega esto a tu `opencode.json`:
 ```json
 {
   "command": {
-    "propuesta-web-kl": {
+    "auto-benchmark-web": {
       "description": "Genera propuesta web con benchmark, diagnóstico, diseño y 3 paquetes de inversión",
-      "template": "Activa el skill propuesta-web-kl y ejecuta el flujo completo paso a paso, preguntando al usuario la información necesaria en cada paso."
+      "prompt": "Activa el skill auto-benchmark-web y ejecuta el flujo completo paso a paso, preguntando al usuario la información necesaria en cada paso."
     }
   }
 }
@@ -68,7 +68,7 @@ Agrega esto a tu `opencode.json`:
 Luego ejecuta:
 
 ```
-/propuesta-web-kl
+/auto-benchmark-web
 ```
 
 ---
@@ -101,7 +101,7 @@ proyecto/
 Para modificar la estructura o el diseño de las presentaciones generadas, edita los templates en la carpeta `templates/`:
 
 ```
-.opencode/skills/propuesta-web-kl/templates/
+.opencode/skills/auto-benchmark-web/templates/
 ├── presentacion.md      ← Template base Markdown
 └── presentacion.html    ← Template base HTML
 ```
