@@ -192,14 +192,38 @@ Espera confirmación o ajustes del usuario.
 
 ---
 
+### Paso 9.5 — Datos del firmante de la propuesta
+
+Antes de generar los documentos oficiales, pregunta al usuario los datos de la persona que firma la propuesta:
+
+1. **Nombre completo**
+2. **Puesto / cargo** (ej: CEO, Director de Proyectos, Ingeniero)
+3. **Presentación breve** (una o dos líneas sobre su perfil profesional)
+4. **Teléfono de contacto**
+5. **Correo electrónico**
+
+Anota los datos. Serán usados en la portada y footer de `presentacion.html` y en el encabezado de `presentacion.md`, reemplazando los valores por defecto de los templates.
+
+---
+
 ### Paso 10 — Generación de documentos
 
-Una vez confirmados los precios, genera **ambos** archivos:
+Usa los datos del firmante (Paso 9.5) y toda la información recolectada anteriormente. Genera **ambos** archivos:
 
-1. **`presentacion.md`** — usando la estructura de `templates/presentacion.md` como guía, rellenando con toda la información recolectada en los pasos anteriores (logo del cliente, benchmark, diagnóstico, arquitectura, diseño, propuesta de valor, stack, paquetes de inversión confirmados, próximos pasos).
+1. **`presentacion.md`** — usando la estructura de `templates/presentacion.md` como guía, rellenando con:
+   - Logo del cliente (Paso 1)
+   - Datos del firmante (Paso 9.5): nombre, puesto, presentación, teléfono, correo
+   - Benchmark (Paso 2)
+   - Diagnóstico (Paso 3)
+   - Arquitectura (Paso 4)
+   - Decisiones de diseño (Paso 5)
+   - Propuesta de valor (Paso 6)
+   - Próximos pasos (Paso 7)
+   - Stack técnico (Paso 8)
+   - Paquetes de inversión confirmados (Paso 9)
 
 2. **`presentacion.html`** — usando la estructura de `templates/presentacion.html` como guía, generando un HTML visual premium con:
-   - Portada con logo del cliente, datos de KreatifLab, fecha
+   - Portada con logo del cliente, datos del firmante (nombre, puesto, teléfono, correo), fecha
    - Navegación tipo glassmorphism con todas las secciones
    - Tarjetas de benchmark (grid-3)
    - Tabla de diagnóstico (antes vs después)
@@ -212,23 +236,24 @@ Una vez confirmados los precios, genera **ambos** archivos:
    - Tema oscuro/dorado (KreatifLab signature style)
    - Animación de scroll reveal
    - Navegación suave (smooth scroll)
+   - Theme toggle (claro/oscuro)
 
 ---
 
-### Paso 11 — Generar prompt de diseño para construir el sitio
+### Paso 11 — Generar prompts de diseño por paquete
 
-Una vez confirmados los precios y generados los documentos de propuesta, crea el archivo **`prompt-diseno.md`** con el prompt completo para que cualquier agente IA (opencode, Claude Code, Cursor, etc.) construya el sitio web.
+Genera **3 archivos** de prompt de diseño, uno por cada paquete de inversión (Básico, Premium, Full). Cada archivo contendrá las especificaciones técnicas exactas de su paquete correspondiente.
 
-El archivo debe contener esta estructura exacta:
-
----
+Estructura común para los 3 archivos:
 
 ```markdown
-# Prompt de Diseño — [Nombre del Cliente]
+# Prompt de Diseño — [Nombre del Cliente] — [Paquete]
 
 ## 1. Resumen ejecutivo
 - **Cliente:** [nombre]
 - **Industria:** [tipo de negocio]
+- **Paquete contratado:** [Básico / Premium / Full]
+- **Inversión:** [precio del paquete]
 - **Stack técnico:** [tecnologías definidas en Paso 8]
 - **Tono visual:** [definido en Paso 5]
 
@@ -243,43 +268,107 @@ El archivo debe contener esta estructura exacta:
   - Títulos: [fuente] — [justificación]
   - Cuerpo: [fuente] — [justificación]
 - **UX highlights:** [3-5 puntos clave definidos en Paso 5]
-- **Benchmark aplicado:** [qué inspiración se tomó de cada referencia analizada en Paso 2]
+- **Benchmark aplicado:** [qué inspiración se tomó de cada referencia]
 
 ## 3. Arquitectura del sitio
-[Estructura completa definida en Paso 4 — listar cada sección con su propósito y contenido esperado]
+[Estructura completa definida en Paso 4 — solo las secciones que aplican al paquete]
 
+## 4. Requerimientos funcionales del paquete
+[Lista específica según el paquete:]
+```
+
+**Contenido específico por paquete:**
+
+#### prompt-diseno-basico.md
+```markdown
 ## 4. Requerimientos funcionales
-- [ ] Diseño responsive (mobile-first, mín. 3 breakpoints)
-- [ ] Navegación [tipo de menú definido]
-- [ ] Hero / portada con [slider / video / imagen]
-- [ ] Secciones: [listar cada sección]
-- [ ] Formulario de contacto conectado a [backend definido]
-- [ ] Mapa interactivo (si aplica)
-- [ ] Sliders / carruseles (si aplica)
-- [ ] Animaciones: scroll reveal, hover effects, [otras]
-- [ ] Integraciones: [redes sociales, analytics, WhatsApp, etc.]
-- [ ] SEO on-page básico
-- [ ] Performance: lazy loading, imágenes optimizadas
+- [ ] Diseño responsive (mobile-first, mín. 2 breakpoints)
+- [ ] 1 página única (landing / hero + secciones en una sola vista)
+- [ ] Navegación simple tipo menú horizontal o hamburguesa
+- [ ] Hero con imagen de fondo y CTA principal
+- [ ] Secciones: [listar según Paso 4, versión reducida]
+- [ ] Formulario de contacto conectado a email (PHP / Formspree / EmailJS)
+- [ ] Redes sociales (enlaces)
+- [ ] Mapa embebido (Google Maps)
+- [ ] Animaciones: scroll reveal básico, hover effects en cards
+- [ ] SEO on-page básico (meta tags, Open Graph)
 
 ## 5. Instrucciones de implementación
+- HTML/CSS/JS vanilla (sin frameworks)
+- Contenido hardcodeado en HTML
+- Diseño responsive básico
+- Sin dependencias externas (excepto Font Awesome y Google Fonts si aplica)
 
-Construye el sitio web completo siguiendo esta especificación. Genera los siguientes archivos en la raíz del proyecto:
+## 6. Créditos
+Diseño y estrategia por [KreatifLab](https://www.kreatiflab.com)
+```
 
-- `index.html` — estructura semántica completa
-- `styles.css` — todos los estilos (variables CSS, responsive, animaciones)
-- `script.js` — toda la interactividad (menú, sliders, formulario, scroll reveal)
-- `send.php` o el backend definido (si aplica)
+#### prompt-diseno-premium.md
+```markdown
+## 4. Requerimientos funcionales
+- [ ] Diseño responsive (mobile-first, mín. 3 breakpoints: 768px, 1024px, 1200px)
+- [ ] 3–5 páginas (inicio, servicios, contacto, blog, [otras según Paso 4])
+- [ ] Navegación con mega-menú o tabs por categoría
+- [ ] Hero con slider de imágenes o video background
+- [ ] Sliders / carruseles de contenido
+- [ ] Mapa interactivo (SVG o librería ligera)
+- [ ] Filtros de contenido (por categoría, destino, etc.)
+- [ ] Custom cursor (efecto visual premium)
+- [ ] Formulario de contacto conectado a API REST ligera
+- [ ] Blog con listado de artículos y vista individual
+- [ ] Google Analytics 4
+- [ ] WhatsApp / chat en vivo integrado
+- [ ] Newsletter (suscripción por email)
+- [ ] Animaciones: scroll reveal, parallax, hover effects avanzados, transiciones suaves
+- [ ] SEO on-page completo (meta tags, Open Graph, JSON-LD, sitemap)
+- [ ] Performance: lazy loading, imágenes WebP, minificación
 
-### Formato de salida esperado
-- HTML5 semántico y accesible
-- CSS con Custom Properties para theming
-- JavaScript vanilla (sin frameworks a menos que se especifique lo contrario)
-- Código limpio sin comentarios excesivos
-- Diseño responsive probado en mobile, tablet y desktop
-- Animaciones sutiles y performantes
+## 5. Instrucciones de implementación
+- HTML/CSS/JS vanilla o React/Next.js según stack definido
+- Secciones dinámicas vía archivos JSON o CMS headless ligero
+- Diseño premium con micro-interacciones
+- Código modular y reutilizable
 
-### Benchmark aplicado
-[Detallar qué aprendizajes de cada sitio de referencia deben reflejarse en el diseño final]
+## 6. Créditos
+Diseño y estrategia por [KreatifLab](https://www.kreatiflab.com)
+```
+
+#### prompt-diseno-full.md
+```markdown
+## 4. Requerimientos funcionales
+- [ ] Diseño responsive (mobile-first, 4+ breakpoints)
+- [ ] 5+ páginas + panel de administración / dashboard
+- [ ] Navegación compleja con mega-menú, breadcrumbs, filtros avanzados
+- [ ] Hero con slider, video background o animación WebGL
+- [ ] Dashboard admin con CRUD completo (tours, productos, blog, usuarios)
+- [ ] Buscador interno con filtros y resultados dinámicos
+- [ ] Panel de analytics integrado (vistas, conversiones, usuarios)
+- [ ] Autenticación de usuarios con roles (admin, editor, cliente)
+- [ ] Base de datos relacional (MySQL / PostgreSQL)
+- [ ] API RESTful completa con documentación
+- [ ] Multi-idioma (i18n con detector de idioma del navegador)
+- [ ] Pasarela de pagos integrada (si aplica)
+- [ ] CRM integrado (HubSpot / Salesforce / API propia)
+- [ ] Automatizaciones (emails transaccionales, notificaciones)
+- [ ] Sliders, carruseles, galerías interactivas
+- [ ] Mapa interactivo avanzado con markers y filtros geográficos
+- [ ] Custom cursor y micro-interacciones avanzadas
+- [ ] Blog completo con categorías, etiquetas y comentarios
+- [ ] Google Analytics 4 + Google Tag Manager
+- [ ] WhatsApp / chat en vivo integrado
+- [ ] Newsletter con segmentación
+- [ ] SEO on-page avanzado (meta tags, Open Graph, JSON-LD, sitemap dinámico, robots.txt)
+- [ ] Performance: lazy loading, imágenes WebP/AVIF, CDN, caching, minificación, Critical CSS
+
+## 5. Instrucciones de implementación
+- Según stack definido (vanilla, React, Next.js, etc.)
+- Backend completo con autenticación y base de datos
+- CMS completo para gestión de contenido sin código
+- Código modular, testeable y con buenas prácticas
+- Preparado para escalar (arquitectura limpia, separación de concerns)
+
+## 6. Créditos
+Diseño y estrategia por [KreatifLab](https://www.kreatiflab.com)
 ```
 
 ---
@@ -289,13 +378,16 @@ Construye el sitio web completo siguiendo esta especificación. Genera los sigui
 - Los archivos se generan en la raíz del proyecto actual:
   - `presentacion.md` — documento de propuesta en Markdown
   - `presentacion.html` — documento de propuesta en HTML visual premium
-  - `prompt-diseno.md` — prompt técnico para construir el sitio con IA (nuevo en v1.5)
+  - `prompt-diseno-basico.md` — prompt técnico para el paquete Básico
+  - `prompt-diseno-premium.md` — prompt técnico para el paquete Premium
+  - `prompt-diseno-full.md` — prompt técnico para el paquete Full
 - Si ya existen, preguntar antes de sobrescribir
 
 ## Notas importantes
 
 - Siempre usa el logo de KreatifLab en el nav y footer del HTML generado
-- Los datos de contacto de KreatifLab van en portada y footer
+- Los datos del firmante (Paso 9.5) reemplazan los valores por defecto en los templates
 - El estilo visual del HTML debe ser oscuro premium con acentos dorados (#e8a838)
 - La fuente tipográfica es Playfair Display (títulos) + Inter (cuerpo)
 - Incluye theme toggle (claro/oscuro) en el HTML
+- Cada prompt de diseño incluye crédito de KreatifLab al final

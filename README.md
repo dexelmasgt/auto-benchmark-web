@@ -39,8 +39,9 @@ Analiza sitios de referencia, diagnostica el sitio actual del cliente, define ar
 7. Define hoja de ruta / próximos pasos
 8. Recomienda stack técnico
 9. Genera 3 paquetes de inversión con precios según país
-10. Exporta `presentacion.md` y `presentacion.html`
-11. Genera `prompt-diseno.md` — prompt técnico para que un agente IA construya el sitio
+10. Pregunta datos del firmante (nombre, puesto, presentación, teléfono, correo)
+11. Exporta `presentacion.md` y `presentacion.html`
+12. Genera 3 prompts de diseño (`prompt-diseno-basico.md`, `prompt-diseno-premium.md`, `prompt-diseno-full.md`) con especificaciones de cada paquete y créditos de KreatifLab
 
 ---
 
@@ -113,7 +114,9 @@ El skill se activa automáticamente cuando mentions palabras como:
 proyecto/
 ├── presentacion.md      ← Documento de propuesta en Markdown
 ├── presentacion.html    ← Documento de propuesta en HTML visual premium
-├── prompt-diseno.md     ← Prompt técnico para construir el sitio con IA
+├── prompt-diseno-basico.md    ← Prompt técnico paquete Básico
+├── prompt-diseno-premium.md   ← Prompt técnico paquete Premium
+├── prompt-diseno-full.md      ← Prompt técnico paquete Full
 ```
 
 ---
@@ -141,7 +144,7 @@ El HTML generado incluye:
 - Arquitectura en formato monospace
 - Paleta de colores con muestras visuales
 - Paquetes de inversión con precios
-- `prompt-diseno.md` — prompt listo para construir el sitio con IA
+- 3 prompts de diseño (`prompt-diseno-basico.md`, `prompt-diseno-premium.md`, `prompt-diseno-full.md`) — cada uno con las especificaciones exactas del paquete y créditos de KreatifLab
 - Theme toggle (claro/oscuro)
 - Animaciones scroll reveal
 - Footer de KreatifLab con contacto
